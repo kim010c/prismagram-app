@@ -20,3 +20,8 @@ Screens :
 4. yarn add @expo/vector-icons
 5. expo install expo-font expo-asset (expo 34이상 버전부터)
 6. yarn add apollo-cache-persist apollo-cache-inmemory
+
+# 메모
+
+1. AsyncStorage는 String형태로만 받는다.
+2. TouchableOpacity : 터치 이벤트(onPress 등)를 사용할 수 있는 VIew
