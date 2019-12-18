@@ -11,8 +11,13 @@ Screens :
 - [ ] Photo Detail
 - [ ] Photo Comments (Challenge)
 - [ ] Photo Likes (Challenge)
+  <hr/>
 
 # APP setup
+
+clone 후 yarn install시 아래 패키지 자동 설치
+
+- 설치 패키지 목록 -
 
 1. yarn global add expo-cli
 2. expo init app name
@@ -22,6 +27,9 @@ Screens :
 6. yarn add apollo-cache-persist apollo-cache-inmemory
 7. yarn add react-native-gesture-handler
 8. yarn add react-navigation-stack
+9. yarn add react-navigation-tabs
+   10.expo install react-native-reanimated
+   <hr/>
 
 # 메모
 
