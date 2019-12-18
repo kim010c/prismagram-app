@@ -20,6 +20,8 @@ Screens :
 4. yarn add @expo/vector-icons
 5. expo install expo-font expo-asset (expo 34이상 버전부터)
 6. yarn add apollo-cache-persist apollo-cache-inmemory
+7. yarn add react-native-gesture-handler
+8. yarn add react-navigation-stack
 
 # 메모
 
