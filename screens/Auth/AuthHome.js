@@ -1,23 +1,54 @@
 import React from "react";
 import styled from "styled-components";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import constants from "../../constants";
 
 const View = styled.View`
   justify-content: center;
   align-items: center;
   flex: 1;
 `;
+const Image = styled.Image`
+  width: ${constants.width / 2.5};
+  height: ${constants.height / 10};
+  margin-bottom: 15px;
+`;
 
-const Text = styled.Text``;
+const Touchable = styled.TouchableOpacity``;
+const SignUpBtn = styled.View`
+  background-color: ${props => props.theme.blueColor};
+  padding: 10px;
+  margin: 0px 50px;
+  border-radius: ${props => props.theme.borderRadius};
+  width: ${constants.width / 2};
+  margin-bottom: 25px;
+`;
+const SignUpBtnText = styled.Text`
+  color: white;
+  text-align: center;
+  font-weight: 600;
+`;
+
+const LoginLink = styled.View``;
+const LoginLinkText = styled.Text`
+  color: ${props => props.theme.blueColor};
+  font-weight: 600;
+`;
 
 export default ({ navigation }) => (
   <View>
-    <Text>Auth Home</Text>
-    <TouchableOpacity onPress={() => navigation.navigate("Login")}>
-      <Text>Go to Login</Text>
-    </TouchableOpacity>
-    <TouchableOpacity onPress={() => navigation.navigate("Signup")}>
-      <Text>Go to Signup</Text>
-    </TouchableOpacity>
+    <Image
+      resizeMode={"contain"}
+      source={require("../../assets/instagramlogo.png")}
+    />
+    <Touchable onPress={() => navigation.navigate("Signup")}>
+      <SignUpBtn>
+        <SignUpBtnText>Create New Account</SignUpBtnText>
+      </SignUpBtn>
+    </Touchable>
+    <Touchable onPress={() => navigation.navigate("Login")}>
+      <LoginLink>
+        <LoginLinkText>Log in</LoginLinkText>
+      </LoginLink>
+    </Touchable>
   </View>
 );

@@ -30,6 +30,7 @@ export default createBottomTabNavigator({
   },
   Add: {
     screen: View,
+    mode: "modal",
     navigationOptions: {
       tabBarOnPress: ({ navigation }) => navigation.navigate("PhotoNavigation")
     }
