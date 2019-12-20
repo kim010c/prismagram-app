@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import constants from "../../constants";
+import AuthButton from "../../components/AuthButton";
 
 const View = styled.View`
   justify-content: center;
@@ -14,24 +15,12 @@ const Image = styled.Image`
 `;
 
 const Touchable = styled.TouchableOpacity``;
-const SignUpBtn = styled.View`
-  background-color: ${props => props.theme.blueColor};
-  padding: 10px;
-  margin: 0px 50px;
-  border-radius: ${props => props.theme.borderRadius};
-  width: ${constants.width / 2};
-  margin-bottom: 25px;
-`;
-const SignUpBtnText = styled.Text`
-  color: white;
-  text-align: center;
-  font-weight: 600;
-`;
 
 const LoginLink = styled.View``;
 const LoginLinkText = styled.Text`
   color: ${props => props.theme.blueColor};
   font-weight: 600;
+  margin-top: 20px;
 `;
 
 export default ({ navigation }) => (
@@ -40,11 +29,10 @@ export default ({ navigation }) => (
       resizeMode={"contain"}
       source={require("../../assets/instagramlogo.png")}
     />
-    <Touchable onPress={() => navigation.navigate("Signup")}>
-      <SignUpBtn>
-        <SignUpBtnText>Create New Account</SignUpBtnText>
-      </SignUpBtn>
-    </Touchable>
+    <AuthButton
+      text={"Create New Account"}
+      onPress={() => navigation.navigate("Signup")}
+    />
     <Touchable onPress={() => navigation.navigate("Login")}>
       <LoginLink>
         <LoginLinkText>Log in</LoginLinkText>
