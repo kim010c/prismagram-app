@@ -17,8 +17,10 @@ const View = styled.View`
 export default ({ navigation }) => {
   const emailInput = useInput("");
   const [loading, setLoading] = useState(false);
-  const [requestSecret] = useMutation(LOG_IN, {
-    variables: emailInput.value
+  const [requestSecretMutation] = useMutation(LOG_IN, {
+    variables: {
+      email: emailInput.value
+    }
   });
   const handleLogin = async () => {
     const { value } = emailInput;
@@ -32,10 +34,19 @@ export default ({ navigation }) => {
     }
     try {
       setLoading(true);
-      await requestSecret();
-      Alert.alert("Email을 확인해 주세요.");
-      navigation.navigate("Confirm");
+      const {
+        data: { requestSecret }
+      } = await requestSecretMutation();
+      if (requestSecret) {
+        Alert.alert("Email을 확인해 주세요.");
+        navigation.navigate("Confirm");
+        return;
+      } else {
+        Alert.alert("계정이 존재하지 않습니다.");
+        navigation.navigate("Signup");
+      }
     } catch (e) {
+      console.log(e);
       Alert.alert("로그인 할 수 없습니다.");
     } finally {
       setLoading(false);
