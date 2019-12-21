@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import AuthButton from "../../components/AuthButton";
 import { TouchableWithoutFeedback, Keyboard } from "react-native";
 import AuthInput from "../../components/AuthInput";
 import useInput from "../../hooks/useInput";
 import { Alert } from "react-native";
+import { useMutation } from "react-apollo-hooks";
+import { LOG_IN } from "./AuthQueries";
 
 const View = styled.View`
   justify-content: center;
@@ -12,17 +14,31 @@ const View = styled.View`
   flex: 1;
 `;
 
-export default () => {
+export default ({ navigation }) => {
   const emailInput = useInput("");
-  const handleLogin = () => {
+  const [loading, setLoading] = useState(false);
+  const [requestSecret] = useMutation(LOG_IN, {
+    variables: emailInput.value
+  });
+  const handleLogin = async () => {
     const { value } = emailInput;
     const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (value === "") {
-      return Alert.alert("Email can't be empty");
+      return Alert.alert("Email이 비어있습니다.");
     } else if (!value.includes("@") || !value.includes(".")) {
-      return Alert.alert("Please write an email");
+      return Alert.alert("Email형식에 맞게 작성하여 주세요.");
     } else if (!emailRegex.test(value)) {
-      return Alert.alert("That email is invalid");
+      return Alert.alert("해당 이메일이 유효하지 않습니다.");
+    }
+    try {
+      setLoading(true);
+      await requestSecret();
+      Alert.alert("Email을 확인해 주세요.");
+      navigation.navigate("Confirm");
+    } catch (e) {
+      Alert.alert("로그인 할 수 없습니다.");
+    } finally {
+      setLoading(false);
     }
   };
   return (
@@ -37,7 +53,7 @@ export default () => {
           onSubmitEditing={handleLogin}
           autoCorrect={false}
         />
-        <AuthButton onPress={handleLogin} text="Log In" />
+        <AuthButton loading={loading} onPress={handleLogin} text="Log In" />
       </View>
     </TouchableWithoutFeedback>
   );
