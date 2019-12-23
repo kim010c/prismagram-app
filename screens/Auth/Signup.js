@@ -98,14 +98,9 @@ export default ({ navigation }) => {
     }
   };
   const googleLogin = async () => {
-    // const IOS_GOOGLE_ID =
-    //   "730928440948-b7kcr3q6qumje5j2m9ba373oh519hlts.apps.googleusercontent.com";
-    // const AOS_GOOGLE_ID =
-    //   "730928440948-vesv34iu0vpfq97hq0jeon7e3t7t2pii.apps.googleusercontent.com";
     try {
       setLoading(true);
       const result = await Google.logInAsync({
-        androidClientId: `<YOUR_ANDROID_CLIENT_ID>`,
         iosClientId: IOS_GOOGLE_ID,
         androidClientId: AOS_GOOGLE_ID,
         scopes: ["profile", "email"]
