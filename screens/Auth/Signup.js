@@ -9,7 +9,7 @@ import { useMutation } from "react-apollo-hooks";
 import { CREATE_ACCOUNT } from "./AuthQueries";
 import * as Facebook from "expo-facebook";
 import * as Google from "expo-google-app-auth";
-import "../../env";
+// import "../../env"
 
 const View = styled.View`
   justify-content: center;
@@ -76,7 +76,7 @@ export default ({ navigation }) => {
   const fbLogin = async () => {
     try {
       setLoading(true);
-      await Facebook.initializeAsync(FACEBOOK_ID);
+      await Facebook.initializeAsync("452173045455901");
       const { type, token } = await Facebook.logInWithReadPermissionsAsync({
         permissions: ["public_profile", "email"]
       });
@@ -99,6 +99,10 @@ export default ({ navigation }) => {
   };
   const googleLogin = async () => {
     try {
+      const IOS_GOOGLE_ID =
+        "730928440948-b7kcr3q6qumje5j2m9ba373oh519hlts.apps.googleusercontent.com";
+      const AOS_GOOGLE_ID =
+        "730928440948-vesv34iu0vpfq97hq0jeon7e3t7t2pii.apps.googleusercontent.com";
       setLoading(true);
       const result = await Google.logInAsync({
         iosClientId: IOS_GOOGLE_ID,
