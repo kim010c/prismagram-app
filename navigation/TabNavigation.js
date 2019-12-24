@@ -13,7 +13,10 @@ const stackFactory = (initialRoute, customConfig) =>
   createStackNavigator({
     InalRoute: {
       screen: initialRoute,
-      navigationOptions: { ...customConfig }
+      navigationOptions: {
+        ...customConfig,
+        headerStyle: { backgroundColor: "#EFEEEF" }
+      }
     }
   });
 
@@ -31,9 +34,9 @@ export default createBottomTabNavigator(
         )
       }),
       navigationOptions: {
-        tabBarIcon: (
+        tabBarIcon: ({ focused }) => (
           <NavIcon
-            size={30}
+            focused={focused}
             name={Platform.OS === "ios" ? "ios-home" : "md-home"}
           />
         )
@@ -44,9 +47,9 @@ export default createBottomTabNavigator(
         title: "Search"
       }),
       navigationOptions: {
-        tabBarIcon: (
+        tabBarIcon: ({ focused }) => (
           <NavIcon
-            size={30}
+            focused={focused}
             name={Platform.OS === "ios" ? "ios-search" : "md-search"}
           />
         )
@@ -57,9 +60,10 @@ export default createBottomTabNavigator(
       navigationOptions: {
         tabBarOnPress: ({ navigation }) =>
           navigation.navigate("PhotoNavigation"),
-        tabBarIcon: (
+        tabBarIcon: ({ focused }) => (
           <NavIcon
-            size={30}
+            focused={focused}
+            size={28}
             name={Platform.OS === "ios" ? "ios-add" : "md-add"}
           />
         )
@@ -67,13 +71,21 @@ export default createBottomTabNavigator(
     },
     Notifications: {
       screen: stackFactory(Notifications, {
-        title: "Notifications"
+        title: "활동"
       }),
       navigationOptions: {
-        tabBarIcon: (
+        tabBarIcon: ({ focused }) => (
           <NavIcon
-            size={30}
-            name={Platform.OS === "ios" ? "ios-heart" : "md-heart"}
+            focused={focused}
+            name={
+              Platform.OS === "ios"
+                ? focused
+                  ? "ios-heart"
+                  : "ios-heart-empty"
+                : focused
+                ? "md-heart"
+                : "md-heart-empty"
+            }
           />
         )
       }
@@ -83,9 +95,9 @@ export default createBottomTabNavigator(
         title: "Profile"
       }),
       navigationOptions: {
-        tabBarIcon: (
+        tabBarIcon: ({ focused }) => (
           <NavIcon
-            size={30}
+            focused={focused}
             name={Platform.OS === "ios" ? "ios-person" : "md-person"}
           />
         )
@@ -94,7 +106,10 @@ export default createBottomTabNavigator(
   },
   {
     tabBarOptions: {
-      showLabel: false
+      showLabel: false,
+      tabStyle: {
+        backgroundColor: "#EFEEEF"
+      }
     }
   }
 );
