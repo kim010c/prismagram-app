@@ -59,7 +59,7 @@ const Post = ({
   likeCount: likeCountProp,
   caption,
   commentCount,
-  comments = [],
+  //   comments = [],
   isLiked: isLikedProp
   //   comments
 }) => {
