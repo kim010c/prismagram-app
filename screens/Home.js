@@ -40,6 +40,7 @@ const FEED_QUERY = gql`
 export default () => {
   const [refreshing, setRefreshing] = useState(false);
   const { loading, data, refetch } = useQuery(FEED_QUERY);
+  // console.log(data);
   const refresh = async () => {
     try {
       setRefreshing(true);
