@@ -24,13 +24,33 @@ const Location = styled.Text`
   margin-top: 3px;
 `;
 const IconsContainer = styled.View`
-  padding: 10px;
+  padding-left: 5px;
+  margin-bottom: 5px;
   flex-direction: row;
 `;
 const IconContainer = styled.View`
-  margin-right: 10px;
+  margin-right: 7px;
+  margin-left: 10px;
 `;
-const Post = ({ user, location, files = [] }) => {
+const InfoContainer = styled.View`
+  padding: 10px;
+`;
+const Caption = styled.Text`
+  margin: 3px 0px;
+`;
+const CommentCount = styled.Text`
+  opacity: 0.5;
+  font-size: 13px;
+`;
+const Post = ({
+  user,
+  location,
+  files = [],
+  likeCount,
+  caption,
+  commentCount,
+  comments
+}) => {
   return (
     <Container>
       <Header>
@@ -63,28 +83,37 @@ const Post = ({ user, location, files = [] }) => {
           />
         ))}
       </Swiper>
-      <IconsContainer>
+      <InfoContainer>
+        <IconsContainer>
+          <Touchable>
+            <IconContainer>
+              <Ionicons
+                size={28}
+                name={
+                  Platform.OS === "ios" ? "ios-heart-empty" : "md-heart-empty"
+                }
+              />
+            </IconContainer>
+          </Touchable>
+          <Touchable>
+            <IconContainer>
+              <Ionicons
+                size={28}
+                name={Platform.OS === "ios" ? "ios-text" : "md-text"}
+              />
+            </IconContainer>
+          </Touchable>
+        </IconsContainer>
         <Touchable>
-          <IconContainer>
-            <Ionicons
-              size={28}
-              name={
-                Platform.OS === "ios" ? "ios-heart-empty" : "md-heart-empty"
-              }
-            />
-          </IconContainer>
+          <Bold>{likeCount === 1 ? "1 like" : `${likeCount} likes`}</Bold>
         </Touchable>
+        <Caption>
+          <Bold>{user.username}</Bold> {caption}
+        </Caption>
         <Touchable>
-          <IconContainer>
-            <Ionicons
-              size={28}
-              name={
-                Platform.OS === "ios" ? "ios-message-empty" : "md-message-empty"
-              }
-            />
-          </IconContainer>
+          <CommentCount>{`댓글 ${commentCount}개 모두보기`}</CommentCount>
         </Touchable>
-      </IconsContainer>
+      </InfoContainer>
     </Container>
   );
 };

@@ -31,6 +31,7 @@ const FEED_QUERY = gql`
           username
         }
       }
+      commentCount
       createdAt
     }
   }
