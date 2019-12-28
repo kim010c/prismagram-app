@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import SearchBar from "../components/SearchBar";
+import { TouchableWithoutFeedback, Keyboard } from "react-native";
+
 const View = styled.View`
   justify-content: center;
   align-items: center;
@@ -13,23 +15,41 @@ export default class extends React.Component {
   static navigationOptions = ({ navigation }) => ({
     headerTitle: (
       <SearchBar
-        value={this.state.term}
-        onChange={this.onChange}
-        onSubmit={() => {}}
+        value={navigation.getParam("term", "")}
+        onChange={navigation.getParam("onChange", () => null)}
+        onSubmit={navigation.getParam("onSubmit", () => null)}
       />
     )
   });
-  state = {
-    term: ""
-  };
+  constructor(props) {
+    super(props);
+    const { navigation } = props;
+    this.state = {
+      term: ""
+    };
+    navigation.setParams({
+      term: this.state.term,
+      onChange: this.onChange,
+      onSubmit: this.onSubmit
+    });
+  }
   onChange = text => {
-    this.setState({ text });
+    const { navigation } = this.props;
+    this.setState({ term: text });
+    navigation.setParams({
+      term: text
+    });
+  };
+  onSubmit = () => {
+    console.log("Submit");
   };
   render() {
     return (
-      <View>
-        <Text>Search</Text>
-      </View>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View>
+          <Text>Search</Text>
+        </View>
+      </TouchableWithoutFeedback>
     );
   }
 }
