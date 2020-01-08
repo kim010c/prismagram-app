@@ -15,7 +15,9 @@ export const ME = gql`
   ${USER_FRAGMENT}
 `;
 export default ({ navigation }) => {
-  const { loading, data } = useQuery(ME);
+  const { loading, data } = useQuery(ME, {
+    variables: { username: navigation.getParam("username") }
+  });
   return (
     <ScrollView>
       {loading ? <Loader /> : data && data.me && <UserProfile {...data.me} />}
