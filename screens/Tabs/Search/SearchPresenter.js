@@ -31,7 +31,7 @@ const SearchPresenter = ({ term, shouldFetch }) => {
     // fetchPolicy: "network-only" //네트워크를 요청하도록 할 떄 사용
     //fetchPolicy를통해 항상 캐시에 저장되지 않도록 가능
   });
-  console.log(data, loading);
+  //console.log(data, loading);
   const onRefresh = async () => {
     try {
       setRefreshing(true);
