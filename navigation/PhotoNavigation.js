@@ -8,16 +8,16 @@ import styles from "../styles";
 
 const PhotoTabs = createMaterialTopTabNavigator(
   {
-    Select: {
-      screen: SelectPhoto,
-      navigationOptions: {
-        tabBarLabel: "라이브러리"
-      }
-    },
     Take: {
       screen: TakePhoto,
       navigationOptions: {
         tabBarLabel: "사진"
+      }
+    },
+    Select: {
+      screen: SelectPhoto,
+      navigationOptions: {
+        tabBarLabel: "라이브러리"
       }
     }
   },
