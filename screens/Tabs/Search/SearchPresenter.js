@@ -18,6 +18,13 @@ export const SEARCH = gql`
       likeCount
       commentCount
     }
+    searchUser(term: $term) {
+      id
+      avatar
+      username
+      isFollowing
+      isSelf
+    }
   }
 `;
 const PhotoContainer = styled.View`
@@ -56,7 +63,7 @@ const SearchPresenter = ({ term, shouldFetch }) => {
         ) : (
           data &&
           data.searchPost &&
-          data.searchPost.map(post => <SquarePost key={post.id} {...post} />)
+          data.searchPost.map(post => <SquarePhoto key={post.id} {...post} />)
         )}
       </PhotoContainer>
     </ScrollView>

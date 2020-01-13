@@ -26,7 +26,7 @@ export default ({ navigation }) => {
     const { value } = emailInput;
     const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (value === "") {
-      return Alert.alert("Email이 비어있습니다.");
+      return Alert.alert("Email을 입력해주세요.");
     } else if (!value.includes("@") || !value.includes(".")) {
       return Alert.alert("Email형식에 맞게 작성하여 주세요.");
     } else if (!emailRegex.test(value)) {
