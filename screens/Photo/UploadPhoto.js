@@ -5,7 +5,19 @@ import useInput from "../../hooks/useInput";
 import styles from "../../styles";
 import constants from "../../constants";
 import axios from "axios";
+import { gql } from "apollo-boost";
+import { useMutation } from "react-apollo-hooks";
+import { FEED_QUERY } from "../Home";
 
+const UPLOAD = gql`
+  mutation upload($caption: String!, $files: [String!]!, $location: String) {
+    upload(caption: $caption, files: $files, location: $location) {
+      id
+      caption
+      location
+    }
+  }
+`;
 const View = styled.View`
   flex: 1;
 `;
@@ -41,10 +53,12 @@ const Text = styled.Text`
 `;
 export default ({ navigation }) => {
   const [loading, setIsLoading] = useState(false);
-  const [fileUrl, setFileUrl] = useState("");
   const photo = navigation.getParam("photo");
-  const captionInput = useInput("dfdf");
-  const locationInput = useInput("dfdfd");
+  const captionInput = useInput("");
+  const locationInput = useInput("");
+  const [uploadMutation] = useMutation(UPLOAD, {
+    refetchQueries: () => [{ query: FEED_QUERY }]
+  });
   const handleSubmit = async () => {
     if (captionInput.value === "" || locationInput.value === "") {
       Alert.alert("All fields are required");
@@ -58,6 +72,7 @@ export default ({ navigation }) => {
       uri: photo.uri
     });
     try {
+      setIsLoading(true);
       const {
         data: { location }
       } = await axios.post("http://localhost:4000/api/upload", formData, {
@@ -65,9 +80,25 @@ export default ({ navigation }) => {
           "content-type": "multipart/form-data"
         }
       });
-      setFileUrl(location);
+
+      const {
+        data: { upload }
+      } = await uploadMutation({
+        variables: {
+          files: [location],
+          caption: captionInput.value,
+          location: locationInput.value
+        }
+      });
+      if (upload.id) {
+        navigation.navigate("TabNavigation");
+      }
     } catch (e) {
-      Alert.alert("Cant upload", "Try later");
+      console.log(e);
+      console.log(e.response);
+      Alert.alert("업로드 할 수 없습니다.");
+    } finally {
+      setIsLoading(false);
     }
   };
   return (

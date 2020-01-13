@@ -57,6 +57,7 @@ const Button = styled.View`
 
 const Grid = styled.View`
   flex-direction: row;
+  flex-wrap: wrap;
 `;
 const UserProfile = ({
   avatar,
